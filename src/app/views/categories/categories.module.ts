@@ -1,5 +1,6 @@
 // Angular
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
@@ -49,6 +50,7 @@ import { CategoriesRoutingModule } from './categories-routing.module';
 @NgModule({
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     FormsModule,
     CategoriesRoutingModule,
     BsDropdownModule.forRoot(),

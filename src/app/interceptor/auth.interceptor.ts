@@ -35,7 +35,9 @@ export class AuthInterceptor implements HttpInterceptor {
             });
             return next.handle(cloned)
             .pipe(
-                map((res) => {}),
+                map((res) => {
+                    return res;
+                }),
                 catchError(this.handleAuthError.bind(this))
               );
         } else {

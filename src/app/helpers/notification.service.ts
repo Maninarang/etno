@@ -16,4 +16,10 @@ export class NotificationMessages {
             progressBar: true
           });
      }
+     successMessage(message: string) {
+      this.toastr.success('', message, {
+          positionClass: 'toast-bottom-center',
+          progressBar: true
+        });
+   }
 }

@@ -13,7 +13,7 @@
              (expanded)="expanded($event)"
              [collapse]="isCollapsed"
              class="card-body">
-          <form class="form-horizontal">
+          <form class="form-horizontal" [formGroup]="categoryForm" (ngSubmit)="addCategory()" >
           <div class="form-group">
             <label class="col-form-label" for="prependedInput">Category</label>
             <div class="controls">
@@ -21,7 +21,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="icon-puzzle"></i></span>
                 </div>
-                <input placeholder="Name" class="form-control" size="16" type="text">
+                <input placeholder="Name" formControlName="name" class="form-control" size="16" type="text">
               </div>
             </div>
           </div>
@@ -29,7 +29,7 @@
               <label class="col-form-label" for="prependedInput">Category Image</label>
               <div class="controls">
                 <div class="input-prepend input-group">
-                        <input type="file" #file accept='image/*' (change)="preview(file.files)" >
+                        <input type="file" formControlName="image" #file accept='image/*' (change)="preview(file.files)" >
                   </div>
                   <img [src]="imgURL" height="200" *ngIf="imgURL">
             </div>
