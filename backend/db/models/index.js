@@ -18,7 +18,8 @@ if (config.use_env_variable) {
 }
 
 let modules = [
-  require('./users.js')
+  require('./users.js'),
+  require('./categories.js')
 ];
 
 // Initialize models

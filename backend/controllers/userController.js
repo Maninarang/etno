@@ -4,7 +4,7 @@ const sequelize = require('sequelize');
 const config = require('config');
 const common = require('../helpers/common');
 const crypto = require('crypto');
-const filesUpload = require('./uploadController').uploadFile;
+//const filesUpload = require('../helpers/uploadController').uploadFile;
 
 const Users = db.models.users;
 

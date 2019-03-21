@@ -9,8 +9,6 @@ const get = (res , message,resData) => {
 
 const post = (res, message, resData) => {
   return res.json({
-    success : true,
-    code: 200,
     message: message,
     body: resData
   });

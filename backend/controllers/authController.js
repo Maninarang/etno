@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const common = require('../helpers/common');
 const hashPassword = require('../helpers/hashPassword');
 const responseHelper = require('../helpers/responseHelper');
-const filesUpload = require('./uploadController').uploadFile;
+const filesUpload = require('../helpers/uploadFiles').uploadFile;
 
 const Users = db.models.users;
 

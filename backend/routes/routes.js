@@ -4,6 +4,7 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const userCtrl = require('../controllers/userController');
 const authCtrl = require('../controllers/authController');
+const catCtrl = require('../controllers/categoryController');
 const responseHelper = require('../helpers/responseHelper');
 
 
@@ -28,6 +29,7 @@ routes.use(function(req, res, next) {
 // Authentication Routes
  routes.post('/login', authCtrl.login);
  routes.post('/signUp', authCtrl.signUp);
+ routes.post('/addCategory', catCtrl.add);
 
  routes.post('/logout/:id',authCtrl.logout);
 

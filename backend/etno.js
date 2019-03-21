@@ -10,6 +10,7 @@ const passport = require('passport');
 const routes = require('./routes/routes');
 const checkConn = require('./helpers/checkConn');
 
+
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Credentials", "true");
@@ -26,7 +27,6 @@ app.use(bearerToken());
 Increase Upload File Size
 */
 app.use(bodyParser.json({ limit: '50mb' }));
-
 app.use(bodyParser.urlencoded({ extended: true,limit: '50mb' }));
 
 // Passport
