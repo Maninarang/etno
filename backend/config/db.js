@@ -1,9 +1,9 @@
 module.exports = {
   development: {
-    username: 'w40XvS5PjP',
-    password: 'soc8g5uNK1',
-    database: 'w40XvS5PjP',
-    host: 'remotemysql.com',
+    username: 'dbuser',
+    password: 'cqlsys123',
+    database: 'etno',
+    host: 'localhost',
     dialect: 'mysql',
     dialectOptions: {
       charset: 'utf8mb4'

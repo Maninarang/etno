@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AddComponent } from './add.component';
+import { ViewComponent } from './view.component';
+
 import { FormsComponent } from './forms.component';
 import { SwitchesComponent } from './switches.component';
 import { TablesComponent } from './tables.component';
@@ -25,6 +27,13 @@ const routes: Routes = [
         component: AddComponent,
         data: {
           title: 'New'
+        }
+      },
+      {
+        path: 'view',
+        component: ViewComponent,
+        data: {
+          title: 'View'
         }
       },
       {

@@ -13,7 +13,7 @@
              (expanded)="expanded($event)"
              [collapse]="isCollapsed"
              class="card-body">
-          <form class="form-horizontal" [formGroup]="categoryForm" (ngSubmit)="addCategory()" >
+          <form class="form-horizontal" #form [formGroup]="categoryForm" (ngSubmit)="addCategory()" >
           <div class="form-group">
             <label class="col-form-label" for="prependedInput">Category</label>
             <div class="controls">
@@ -21,7 +21,10 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="icon-puzzle"></i></span>
                 </div>
-                <input placeholder="Name" formControlName="name" class="form-control" size="16" type="text">
+                <input placeholder="Name" formControlName="name" class="form-control" size="16" type="text" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+                <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                  <div *ngIf="f.name.errors.required">Name is required</div>
+              </div>
               </div>
             </div>
           </div>
@@ -29,8 +32,14 @@
               <label class="col-form-label" for="prependedInput">Category Image</label>
               <div class="controls">
                 <div class="input-prepend input-group">
-                        <input type="file" formControlName="image" #file accept='image/*' (change)="preview(file.files)" >
-                  </div>
+                        <input type="file"  #file accept='image/*' (change)="preview(file.files)" />
+                        <input type="hidden" class="form-control" formControlName="image" [ngClass]="{ 'is-invalid': submitted && f.image.errors }"/>
+                        <div *ngIf="submitted && f.image.errors" class="invalid-feedback">
+                            <div *ngIf="!message && f.image.errors.required">Image is required</div>
+                            <div *ngIf="message"> {{message}}</div>
+
+                        </div>
+                      </div>
                   <img [src]="imgURL" height="200" *ngIf="imgURL">
             </div>
           </div>
@@ -39,6 +48,8 @@
             <button class="btn btn-secondary" type="button">Cancel</button>
           </div>
         </form>
+        <ngx-ui-loader></ngx-ui-loader>
+
         </div>
       </div>
     </div> <!--/.col-->

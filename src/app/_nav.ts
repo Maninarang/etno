@@ -50,8 +50,8 @@ export const navItems: NavData[] = [
         icon: 'icon-puzzle'
       },
       {
-        name: 'Carousels',
-        url: '/categories/carousels',
+        name: 'View',
+        url: '/categories/view',
         icon: 'icon-puzzle'
       },
       {

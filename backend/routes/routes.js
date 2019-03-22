@@ -29,7 +29,7 @@ routes.use(function(req, res, next) {
 // Authentication Routes
  routes.post('/login', authCtrl.login);
  routes.post('/signUp', authCtrl.signUp);
- routes.post('/addCategory', catCtrl.add);
+ routes.post('/addCategory',passport.authenticate('jwt', { session: false }), catCtrl.add);
 
  routes.post('/logout/:id',authCtrl.logout);
 
@@ -42,7 +42,7 @@ routes.use(function(req, res, next) {
 /*
   Get Routes
 */
-routes.get('/users', passport.authenticate('jwt', { session: false }), userCtrl.getUserList);
+routes.get('/viewCategory',passport.authenticate('jwt', { session: false }), catCtrl.view);
 
 
 

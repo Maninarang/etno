@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
 import { AddComponent } from './add.component';
+import { ViewComponent } from './view.component';
 
 // Forms Component
 import { FormsComponent } from './forms.component';
@@ -46,6 +47,7 @@ import { TooltipsComponent } from './tooltips.component';
 
 // Components Routing
 import { CategoriesRoutingModule } from './categories-routing.module';
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
 
 @NgModule({
   imports: [
@@ -60,10 +62,12 @@ import { CategoriesRoutingModule } from './categories-routing.module';
     PaginationModule.forRoot(),
     PopoverModule.forRoot(),
     ProgressbarModule.forRoot(),
-    TooltipModule.forRoot()
+    TooltipModule.forRoot(),
+    NgxUiLoaderModule
   ],
   declarations: [
     AddComponent,
+    ViewComponent,
     FormsComponent,
     SwitchesComponent,
     TablesComponent,

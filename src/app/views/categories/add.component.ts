@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NotificationMessages } from '../../helpers/notification.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
@@ -22,13 +22,13 @@ export class AddComponent implements OnInit {
   submitted = false;
   imgURL: any;
   message: string;
-  isCollapsed: boolean = false;
-  iconCollapse: string = 'icon-arrow-up';
-
+  isCollapsed = false;
+  iconCollapse = 'icon-arrow-up';
+  @ViewChild('form') form;
   ngOnInit() {
     this.categoryForm = this.formBuilder.group({
       name: ['', Validators.required],
-      image: []
+      image: [this.fileData, Validators.required]
   });
   }
 
@@ -54,6 +54,7 @@ export class AddComponent implements OnInit {
       this.message = 'Only images are supported.';
       return;
     }
+    this.f['image'].setValue(files[0].name ? files[0].name : '');
     const reader = new FileReader();
     this.imagePath = files;
     this.fileData = <File>files[0];
@@ -82,7 +83,12 @@ export class AddComponent implements OnInit {
             this.notification.errorMessage(response.body);
            }  else if (response.message === 'Added') {
             this.notification.successMessage(response.body);
-
+            this.form.nativeElement.reset();
+            this.imgURL = '';
+// tslint:disable-next-line: forin
+            for (const i in this.categoryForm.controls) {
+              this.categoryForm.controls[i].setErrors(null);
+            }
           }
       },
       (error) => {
