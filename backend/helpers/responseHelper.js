@@ -1,6 +1,6 @@
 const boom = require('boom');
 
-const get = (res , message,resData) => {
+const get = (res, message, resData) => {
   return res.json({
     message: message,
     body: resData
@@ -22,9 +22,8 @@ const del = (res, resData) => {
   });
 }
 
-const put = (res, message,resData) => {
-  return res.json({
-    code: 200,
+const put = (res, message, resData) => {
+  return res.status(200).json({
     message: message,
     body: resData
   });
@@ -32,11 +31,9 @@ const put = (res, message,resData) => {
 
 const getError = (message) => {
   return {
-    success: false,
-    code: 400,
     message: message,
     body: {}
-   };
+  };
 }
 
 const unauthorized = (res, data) => {
@@ -50,7 +47,7 @@ const onError = (res, err, message) => {
   console.log(err);
   console.log(boom.badRequest(message));
   console.log(getError(message));
-  return res.json(getError(message));
+  return res.status(400).json(getError(message));
 }
 
 const noData = (res, err, message) => {
@@ -58,7 +55,7 @@ const noData = (res, err, message) => {
     message: 'User is Unauthorized',
     body: {}
   });
-  }
+}
 
 module.exports = {
   get,

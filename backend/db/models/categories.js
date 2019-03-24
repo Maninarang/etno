@@ -1,5 +1,5 @@
 const common = require('../../helpers/common');
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   return sequelize.define('categories', {
     id: {
       type: DataTypes.INTEGER(11),
@@ -19,6 +19,11 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER(2),
       allowNull: false
     },
+    status: {
+      type: DataTypes.TINYINT(),
+      allowNull: false,
+      defaultValue: 0
+    },
     createdAt: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -30,7 +35,7 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: common.timestamp()
     },
   }, {
-    tableName: 'categories',
-    timestamps: false
-  });
+      tableName: 'categories',
+      timestamps: false
+    });
 };

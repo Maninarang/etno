@@ -47,7 +47,7 @@ module.exports = {
   view: async (req, res) => {
     try {
       const category = await Categories.findAll({
-        attributes: ['name', 'image', 'user.email'],
+        attributes: ['id', 'status', 'name', 'image', 'updatedAt', 'user.email'],
         include: [
           {
             model: Users,
@@ -65,6 +65,60 @@ module.exports = {
     } catch (e) {
       return responseHelper.onError(res, 'Error', 'Something Went Wrong.Please Try Again');
     }
-  }
+  },
+  //////============================= get specific Category Function ===============================//////
+  viewById: async (req, res) => {
+    try {
+      const catId = req.params.id;
+      const category = await Categories.findByPk(catId,
+        {
+          attributes: ['id', 'status', 'name', 'image', 'user.email'],
+          include: [
+            {
+              model: Users,
+              attributes: [],
+              required: true
+            },
+          ],
+          raw: true
+        });
+      if (category) {
+        responseHelper.get(res, 'category Detail', category)
+      } else {
+        responseHelper.onError(res, 'category Detail', 'Invalid Category Id')
+      }
+    } catch (e) {
+      responseHelper.onError(res, 'Error', 'Something Went Wrong.Please Try Again');
+    }
+  },
+  //////============================= update Category Status Function ===============================//////
+  changeStatus: async (req, res) => {
+    try {
+      req.checkBody('id', 'category id is required').notEmpty();
+      req.checkBody('status', 'status is required').notEmpty();
+      req.checkBody('id', 'category id should be integer').isInt();
+      const error = req.validationErrors();
+      if (error) {
+        responseHelper.onError(res, 'Error', error[0].msg);
+        return;
+      }
+      const data = req.body;
+      data.status = data.status;
 
+      const catStatus = await Categories.update(
+        data,
+        {
+          where: {
+            id: data.id
+          }
+        });
+      if (catStatus) {
+        responseHelper.put(res, 'Status', 'Successfully Updated!')
+      } else {
+        responseHelper.onError(res, 'Error', 'Something Went Wrong.Please Try Again!')
+      }
+    } catch (e) {
+      responseHelper.onError(res, 'Error', 'Something Went Wrong.Please Try Again!');
+    }
+  }
 }

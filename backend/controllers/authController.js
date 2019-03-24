@@ -9,7 +9,7 @@ const filesUpload = require('../helpers/uploadFiles').uploadFile;
 const Users = db.models.users;
 
 module.exports = {
-//////============================= Login Function ===============================//////
+  //////============================= Login Function ===============================//////
   login: async (req, res) => {
     try {
       const { email, password } = req.body;
@@ -19,7 +19,7 @@ module.exports = {
       }
 
       const user = await Users.findOne({
-        attributes : ['id','email','password','roleId'],
+        attributes: ['id', 'email', 'password', 'roleId'],
         where: {
           email: email,
           roleId: 1
@@ -32,12 +32,12 @@ module.exports = {
 
         // compare pwd
         if (!match) {
-          return responseHelper.onError(res, 'Invalid Password', 'Invalid Password');
+          return responseHelper.post(res, 'Invalid Password', 'Invalid Password');
         }
 
         const credentials = {
           id: getUser.id,
-         // password: getUser.password,
+          // password: getUser.password,
           email: getUser.email
         };
 
@@ -48,13 +48,13 @@ module.exports = {
         delete getUser.password;
         delete getUser.email;
         delete getUser.roleId;
-        return responseHelper.get(res,'User Detail',getUser);
+        return responseHelper.post(res, 'User Detail', getUser);
       }
 
-      return responseHelper.get(res, 'Invalid User','Invalid User');
+      return responseHelper.post(res, 'Invalid User', 'Invalid User');
     } catch (e) {
       console.log('Error => ', e);
-      return responseHelper.get(res, 'Error',e);
+      return responseHelper.post(res, 'Error', e);
     }
   },
   ///////////////////////////////   Logout user /////////////////////////////////////
@@ -75,14 +75,14 @@ module.exports = {
     }
   },
 
- //////================================ user signup =================================///////
+  //////================================ user signup =================================///////
   signUp: async (req, res) => {
     const data = req.body;
     try {
       req.checkBody('email', 'email is required').notEmpty();
       req.checkBody('email', 'valid email is required').isEmail();
       req.checkBody('password', 'password is required').notEmpty();
-     // req.checkBody('phoneNumber', 'phone number is required').notEmpty();
+      // req.checkBody('phoneNumber', 'phone number is required').notEmpty();
       //req.checkBody('phoneNumber', 'phone number should be integer').isInt();
       req.checkBody('roleId', 'role id is required').notEmpty();
       req.checkBody('roleId', 'role id should be integer').isInt();

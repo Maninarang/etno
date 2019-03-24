@@ -10,49 +10,44 @@ const responseHelper = require('../helpers/responseHelper');
 
 ////// ================== middleware to set custom message on unauthorized token ================//////
 
-routes.use(function(req, res, next) {
-    var token =  req.token;
-    if (token) {
-      jwt.verify(token, config.jwtToken, function(err) {
-          if (err) {
-            return responseHelper.unauthorized(res, err);
-         // return res.status(401).json({ success: false, message: err });
-              } else {
-          next();
-        }
-      });
-    } else {
-          next();
-    }
-  });
+routes.use(function (req, res, next) {
+  var token = req.token;
+  if (token) {
+    jwt.verify(token, config.jwtToken, function (err) {
+      if (err) {
+        responseHelper.unauthorized(res, err);
+      } else {
+        next();
+      }
+    });
+  } else {
+    next();
+  }
+});
 
 // Authentication Routes
- routes.post('/login', authCtrl.login);
- routes.post('/signUp', authCtrl.signUp);
- routes.post('/addCategory',passport.authenticate('jwt', { session: false }), catCtrl.add);
-
- routes.post('/logout/:id',authCtrl.logout);
+routes.post('/login', authCtrl.login);
+routes.post('/signUp', authCtrl.signUp);
+routes.post('/logout/:id', authCtrl.logout);
 
 /*
   Post Routes
 */
+routes.post('/addCategory', passport.authenticate('jwt', { session: false }), catCtrl.add);
 
 
 
 /*
   Get Routes
 */
-routes.get('/viewCategory',passport.authenticate('jwt', { session: false }), catCtrl.view);
-
-
-
-
-
+routes.get('/viewCategories', catCtrl.view);
+routes.get('/viewCategory/:id', catCtrl.viewById);
 
 
 /*
   Put Routes
 */
+routes.put('/changeStatus', catCtrl.changeStatus);
 
 
 
